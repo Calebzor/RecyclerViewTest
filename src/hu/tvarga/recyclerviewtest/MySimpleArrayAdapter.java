@@ -1,6 +1,5 @@
 package hu.tvarga.recyclerviewtest;
 
-
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -15,40 +14,39 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MySimpleArrayAdapter extends ArrayAdapter<POJOForList> {
-    private Context context;
-    private int resource;
+	private Context context;
+	private int resource;
 
+	public MySimpleArrayAdapter(Context context, int resource, List<POJOForList> objects) {
+		super(context, resource, objects);
+		this.context = context;
+		this.resource = resource;
+	}
 
-    public MySimpleArrayAdapter(Context context, int resource, List<POJOForList> objects) {
-        super(context, resource, objects);
-        this.context = context;
-        this.resource = resource;
-    }
+	@SuppressLint("ViewHolder")
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		final POJOForList pojo = getItem(position);
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View rowView = inflater.inflate(resource, parent, false);
+		TextView tv = (TextView) rowView.findViewById(R.id.list_item_tv_label);
+		EditText et = (EditText) rowView.findViewById(R.id.list_item_et_input);
+		tv.setText(pojo.getLabel());
+		et.setText(pojo.getValue() + "");
 
-    @SuppressLint("ViewHolder")
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final POJOForList pojo = getItem(position);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(resource, parent, false);
-        TextView tv = (TextView) rowView.findViewById(R.id.list_item_tv_label);
-        EditText et = (EditText) rowView.findViewById(R.id.list_item_et_input);
-        tv.setText(pojo.getLabel());
-        et.setText(pojo.getValue() + "");
+		et.setOnKeyListener(new OnKeyListener() {
 
-        et.setOnKeyListener(new OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+					pojo.setValue(Integer.valueOf(((EditText) v).getText().toString()));
+					return true;
+				}
+				return false;
 
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    pojo.setValue(Integer.valueOf(((EditText) v).getText().toString()));
-                    return true;
-                }
-                return false;
+			}
+		});
 
-            }
-        });
-
-        return rowView;
-    }
+		return rowView;
+	}
 }

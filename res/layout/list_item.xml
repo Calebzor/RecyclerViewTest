@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="afterDescendants"
     android:focusable="false"
-    android:focusableInTouchMode="false"
-    android:descendantFocusability="afterDescendants" >
+    android:focusableInTouchMode="false" >
 
     <TextView
         android:id="@+id/list_item_tv_label"
@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
-        android:text="@string/label"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        android:text="@string/label" />
 
     <EditText
         android:id="@+id/list_item_et_input"
@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_gravity="end"
-        android:layout_toEndOf="@+id/list_item_tv_label"
         android:layout_marginStart="30dp"
-        android:inputType="number"
-        tools:ignore="LabelFor"
+        android:layout_toEndOf="@+id/list_item_tv_label"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:inputType="number"
+        tools:ignore="LabelFor" />
 
 </RelativeLayout>
