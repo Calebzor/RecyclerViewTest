@@ -45,16 +45,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 		holder.et.setText(String.format("%d", mDataset.get(position).getValue()));
 		holder.myCustomOnKeyListener.updatePosition(position);
 		holder.myCustomOnFocusChangeListener.updatePosition(position);
-
-		// Log.d("hu.tvarga.debug", "pos: " + position + " last focused: " +
-		// focusedPosition);
-		// RecyclerView.ViewHolder focusedViewHolder =
-		// mRecyclerView.findViewHolderForLayoutPosition(focusedPosition);
-		// if (focusedViewHolder == null) {
-		// InputMethodManager imm = (InputMethodManager)
-		// mRecyclerView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-		// imm.hideSoftInputFromWindow(mRecyclerView.getWindowToken(), 0);
-		// }
 	}
 
 	@Override

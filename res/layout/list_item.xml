@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="afterDescendants"
-    android:focusable="false"
-    android:focusableInTouchMode="false" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:descendantFocusability="afterDescendants"
+	android:focusable="false"
+	android:focusableInTouchMode="false" >
 
-    <TextView
-        android:id="@+id/list_item_tv_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:text="@string/label" />
+	<TextView
+		android:id="@+id/list_item_tv_label"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentStart="true"
+		android:layout_marginTop="10dp"
+		android:focusable="false"
+		android:focusableInTouchMode="false"
+		android:text="@string/label" />
 
-    <EditText
-        android:id="@+id/list_item_et_input"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="end"
-        android:layout_marginStart="30dp"
-        android:layout_toEndOf="@+id/list_item_tv_label"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:inputType="number"
-        tools:ignore="LabelFor" />
+	<EditText
+		android:id="@+id/list_item_et_input"
+		android:layout_width="50dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_gravity="end"
+		android:layout_marginStart="30dp"
+		android:layout_toEndOf="@+id/list_item_tv_label"
+		android:focusable="true"
+		android:focusableInTouchMode="true"
+		android:inputType="number"
+		tools:ignore="LabelFor" />
 
 </RelativeLayout>
