@@ -124,14 +124,25 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 		@Override
 		public void onFocusChange(View v, boolean hasFocus) {
+			EditText et = (EditText) v;
 			if (hasFocus) {
 				focusedPosition = position;
 				bottomButton.setVisibility(View.GONE);
+				setCursorToEndOfInput(et);
 			} else {
 				bottomButton.setVisibility(View.VISIBLE);
-				EditText et = (EditText) v;
 				et.setText(String.valueOf(dataset.get(position).getValue()));
 			}
+		}
+
+		private void setCursorToEndOfInput(final EditText et) {
+			et.post(new Runnable() {
+				@Override
+				public void run() {
+					int endOfInput = et.getText().length();
+					et.setSelection(endOfInput);
+				}
+			});
 		}
 	}
 
