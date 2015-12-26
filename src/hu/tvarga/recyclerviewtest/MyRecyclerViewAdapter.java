@@ -15,11 +15,11 @@ import android.widget.TextView;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.DataObjectHolder> {
 	private static Integer focusedPosition;
-	private ArrayList<POJOForList> mDataset;
+	private ArrayList<POJOForList> dataset;
 	protected final Button bottomButton;
 
 	public MyRecyclerViewAdapter(ArrayList<POJOForList> myDataset, Button bottomButton) {
-		mDataset = myDataset;
+		dataset = myDataset;
 		this.bottomButton = bottomButton;
 	}
 
@@ -33,26 +33,34 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 	@Override
 	public void onViewDetachedFromWindow(DataObjectHolder holder) {
 		int recycledPosition = holder.getLayoutPosition();
-		if (focusedPosition != null && recycledPosition == focusedPosition) {
-			View itemView = holder.itemView;
-			InputMethodManager imm = (InputMethodManager) itemView.getContext()
-					.getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(itemView.getWindowToken(), 0);
+		if (isOldFocusedPositionGettingRecycled(recycledPosition)) {
+			hideSoftKeyboard(holder);
 		}
 		super.onViewDetachedFromWindow(holder);
 	}
 
+	private boolean isOldFocusedPositionGettingRecycled(int recycledPosition) {
+		return focusedPosition != null && recycledPosition == focusedPosition;
+	}
+
+	private void hideSoftKeyboard(DataObjectHolder holder) {
+		View itemView = holder.itemView;
+		InputMethodManager imm = (InputMethodManager) itemView.getContext()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(itemView.getWindowToken(), 0);
+	}
+
 	@Override
 	public void onBindViewHolder(DataObjectHolder holder, int position) {
-		holder.label.setText(mDataset.get(position).getLabel());
-		holder.et.setText(String.format("%d", mDataset.get(position).getValue()));
+		holder.label.setText(dataset.get(position).getLabel());
+		holder.et.setText(String.format("%d", dataset.get(position).getValue()));
 		holder.myCustomOnKeyListener.updatePosition(position);
 		holder.myCustomOnFocusChangeListener.updatePosition(position);
 	}
 
 	@Override
 	public int getItemCount() {
-		return mDataset.size();
+		return dataset.size();
 	}
 
 	public static class DataObjectHolder extends RecyclerView.ViewHolder {
@@ -64,12 +72,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 		public DataObjectHolder(View itemView, MyCustomOnKeyListener myCustomOnKeyListener,
 				MyCustomOnFocusChangeListener myCustomOnFocusChangeListener) {
 			super(itemView);
-			label = (TextView) itemView.findViewById(R.id.list_item_tv_label);
-			et = (EditText) itemView.findViewById(R.id.list_item_et_input);
+			initUIRefs(itemView);
 			this.myCustomOnKeyListener = myCustomOnKeyListener;
 			this.myCustomOnFocusChangeListener = myCustomOnFocusChangeListener;
+			setListeners();
+		}
+
+		private void setListeners() {
 			et.setOnKeyListener(myCustomOnKeyListener);
 			et.setOnFocusChangeListener(myCustomOnFocusChangeListener);
+		}
+
+		private void initUIRefs(View itemView) {
+			label = (TextView) itemView.findViewById(R.id.list_item_tv_label);
+			et = (EditText) itemView.findViewById(R.id.list_item_et_input);
 		}
 
 	}
@@ -85,14 +101,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 		public boolean onKey(View v, int keyCode, KeyEvent event) {
 			if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
 				EditText et = (EditText) v;
-				String value = et.getText().toString();
+				String typedInValue = et.getText().toString();
 				Integer valueToBeStored = 0;
-				if (value.equals("")) {
+				if (typedInValue.equals("")) {
 					et.setText("0");
 				} else {
-					valueToBeStored = Integer.valueOf(value);
+					valueToBeStored = Integer.valueOf(typedInValue);
 				}
-				mDataset.get(position).setValue(valueToBeStored);
+				dataset.get(position).setValue(valueToBeStored);
 				return true;
 			}
 			return false;
@@ -114,7 +130,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 			} else {
 				bottomButton.setVisibility(View.VISIBLE);
 				EditText et = (EditText) v;
-				et.setText(String.valueOf(mDataset.get(position).getValue()));
+				et.setText(String.valueOf(dataset.get(position).getValue()));
 			}
 		}
 	}
