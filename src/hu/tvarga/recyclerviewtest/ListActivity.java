@@ -6,13 +6,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ListActivity extends Activity {
 
 	private ArrayList<POJOForList> list;
+	private Button bottomButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +23,22 @@ public class ListActivity extends Activity {
 		list = new ArrayList<POJOForList>();
 		addNumberOfElementsToList(30);
 
+
+
+		bottomButton = (Button) findViewById(R.id.activity_list_btn_bottom_button);
+		setBottomButtonOnClickListener();
+
 		setUpRecyclerView();
 
-		Button bottomButton = (Button) findViewById(R.id.activity_list_btn_bottom_button);
+	}
+
+	private void setBottomButtonOnClickListener() {
 		bottomButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("hu.tvarga.debug", "clicked");
+				Toast.makeText(v.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
 			}
 		});
-
 	}
 
 	private void setUpRecyclerView() {
@@ -39,7 +46,7 @@ public class ListActivity extends Activity {
 		mRecyclerView.setHasFixedSize(true);
 		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
 		mRecyclerView.setLayoutManager(mLayoutManager);
-		RecyclerView.Adapter<?> mAdapter = new MyRecyclerViewAdapter(list);
+		RecyclerView.Adapter<?> mAdapter = new MyRecyclerViewAdapter(list, bottomButton);
 		mRecyclerView.setAdapter(mAdapter);
 	}
 

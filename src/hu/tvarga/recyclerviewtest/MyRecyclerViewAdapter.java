@@ -9,15 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.DataObjectHolder> {
 	private static Integer focusedPosition;
 	private ArrayList<POJOForList> mDataset;
+	protected final Button bottomButton;
 
-	public MyRecyclerViewAdapter(ArrayList<POJOForList> myDataset) {
+	public MyRecyclerViewAdapter(ArrayList<POJOForList> myDataset, Button bottomButton) {
 		mDataset = myDataset;
+		this.bottomButton = bottomButton;
 	}
 
 	@Override
@@ -105,10 +108,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 		@Override
 		public void onFocusChange(View v, boolean hasFocus) {
-
 			if (hasFocus) {
 				focusedPosition = position;
+				bottomButton.setVisibility(View.GONE);
 			} else {
+				bottomButton.setVisibility(View.VISIBLE);
 				EditText et = (EditText) v;
 				et.setText(String.valueOf(mDataset.get(position).getValue()));
 			}
