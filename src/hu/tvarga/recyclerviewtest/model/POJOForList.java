@@ -1,4 +1,4 @@
-package hu.tvarga.recyclerviewtest;
+package hu.tvarga.recyclerviewtest.model;
 
 import java.io.Serializable;
 

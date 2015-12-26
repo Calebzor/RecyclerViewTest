@@ -1,4 +1,4 @@
-package hu.tvarga.recyclerviewtest;
+package hu.tvarga.recyclerviewtest.view;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import hu.tvarga.recyclerviewtest.R;
+import hu.tvarga.recyclerviewtest.controller.MyRecyclerViewAdapter;
+import hu.tvarga.recyclerviewtest.model.POJOForList;
 
 public class ListActivity extends Activity {
 

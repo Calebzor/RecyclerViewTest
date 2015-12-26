@@ -1,4 +1,4 @@
-package hu.tvarga.recyclerviewtest;
+package hu.tvarga.recyclerviewtest.controller;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import hu.tvarga.recyclerviewtest.R;
+import hu.tvarga.recyclerviewtest.model.POJOForList;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.DataObjectHolder> {
 	private static Integer focusedPosition;
@@ -91,6 +93,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 	}
 
 	private class MyCustomOnKeyListener implements View.OnKeyListener {
+		private static final String STRING_FOR_EMPTY_INPUT = "0";
 		private int position;
 
 		public void updatePosition(int position) {
@@ -104,7 +107,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 				String typedInValue = et.getText().toString();
 				Integer valueToBeStored = 0;
 				if (typedInValue.equals("")) {
-					et.setText("0");
+					et.setText(STRING_FOR_EMPTY_INPUT);
 				} else {
 					valueToBeStored = Integer.valueOf(typedInValue);
 				}
